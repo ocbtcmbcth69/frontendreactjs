@@ -5,6 +5,13 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory, { numberFilter, textFilter, dateFilter } from 'react-bootstrap-table2-filter';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 
+// function dateFormatter(cell, row, rowIndex, formatExtraData) {
+//     const formatDate = Moment(row.ngaysinh).format('DD-MM-YYYY');
+//     return (
+//         <>{formatDate}</>
+//     )
+// }
+
 const columns = [
     {
         dataField: 'idnhanvien',

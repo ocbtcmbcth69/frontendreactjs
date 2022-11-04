@@ -8,30 +8,13 @@ import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css
 import '../../styles/Table.scss';
 import Moment from 'moment';
 
-function gioitinhFormatter(cell, row) {// Hiển thị Nam hoặc Nữ ở object giới tính
-    if (row.gioitinh === 1) {
-        return (
-            <>Nam</>
-        );
-    }
+function gioitinhFormatter(cell, row, rowIndex, formatExtraData) {// Hiển thị Nam hoặc Nữ ở object giới tính
     return (
-        <>Nữ</>
+        <>{formatExtraData[cell]}</>
     );
 }
 
-const gioitinhOptions = {
-    0: 'Nữ',
-    1: 'Nam'
-}
-
-function dateFormatter(cell, row) {
-    const formatDate = Moment(row.ngaysinh).format('DD-MM-YYYY');
-    return (
-        <>{formatDate}</>
-    )
-}
-
-const columns = [
+const columns = [//Title của table
     {
         dataField: 'idnhanvien',
         text: 'ID Nhân Viên',
@@ -61,8 +44,16 @@ const columns = [
         text: 'Giới tính',
         sort: true,
         formatter: gioitinhFormatter,
+        formatExtraData: {
+            0: 'Nữ',
+            1: 'Nam'
+        },
         filter: selectFilter({
-            options: gioitinhOptions
+            placeholder: 'Chọn giới tính ',
+            options: {
+                0: 'Nữ',
+                1: 'Nam'
+            }
         })
     },
     {
@@ -70,7 +61,11 @@ const columns = [
         text: 'Ngày sinh',
         sort: true,
         filter: dateFilter(),
-        formatter: dateFormatter
+        formatter: (cell, row) => {
+            return (
+                <>{Moment(row.ngaysinh).format('DD-MM-YYYY')}</>
+            )
+        }
     },
     {
         dataField: 'sdt',
@@ -94,13 +89,23 @@ const columns = [
         dataField: 'ngayvaolam',
         text: 'Ngày vào làm',
         sort: true,
-        filter: dateFilter()
+        filter: dateFilter(),
+        formatter: (cell, row) => {
+            return (
+                <>{Moment(row.ngayvaolam).format('DD-MM-YYYY')}</>
+            )
+        }
     },
     {
         dataField: 'luong',
         text: 'Lương',
         sort: true,
-        filter: numberFilter()
+        filter: numberFilter(),
+        formatter: (cell, row) => {
+            return (
+                <>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'}).format(row.luong)}</>
+            )
+        }
     }
 ];
 
@@ -121,9 +126,6 @@ class TableQLNhanVien extends React.Component {
     }
 
     async componentDidMount() {
-        //https://dummy.restapiexample.com/api/v1/employees
-        //https://reqres.in/api/users?page=2
-        //https://dummyjson.com/users
         let res = await axios.get("http://localhost:8000/api/nv/");
         console.log('check res: ', res.data.data)
         this.setState({
