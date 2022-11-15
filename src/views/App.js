@@ -16,7 +16,12 @@ import QLPhieuDatHang from './admin/QLPhieuDatHang';
 import QLPhieuNhapHang from './admin/QLPhieuNhapHang';
 import QLCTKhuyenMai from './admin/QLCTKhuyenMai';
 import QLNhaCungCap from './admin/QLNhaCungCap';
+import Login from '../components/validate/Login'
+import Register from '../components/validate/Register'
+import ForgotPassword from '../components/validate/ForgotPassword'
 import { useState } from 'react';
+import TrangChu from './customer';
+import BlankPage from './customer/BlankPage';
 
 function App() {
   const [dangnhap, setDangnhap] = useState(false)
@@ -27,6 +32,15 @@ function App() {
         <Routes>
           <Route exact path='/' element={<AuthAdmin setDangnhap={setDangnhap} />} />
           <Route exact path='/AuthCustomer' element={<AuthCustomer />} />
+          <Route exact path='/login' element={<Login />} />
+          <Route exact path='/signup' element={<Register />} />
+          <Route exact path='/forgotpw' element={<ForgotPassword />} />
+          <Route exact path='/trang-chu' element={<TrangChu />} />
+          <Route exact path='/san-pham' element={<BlankPage />} />
+          <Route exact path='/dong-ho-nam' element={<BlankPage />} />
+          <Route exact path='/dong-ho-nu' element={<BlankPage />} />
+          <Route exact path='/thuong-hieu' element={<BlankPage />} />
+          <Route exact path='/gio-hang' element={<BlankPage />} />
         </Routes>
       </Router>
     )

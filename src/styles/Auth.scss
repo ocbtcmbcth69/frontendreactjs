@@ -1,3 +1,9 @@
+.AuthCustomer-background {
+    background-image: url("../assets/pictures/customer/layout_auth.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .Auth-background {
     background-image: url("../assets/pictures/auth_background.jpg");
     background-repeat: no-repeat;
@@ -42,4 +48,8 @@ label {
 
 .Auth-warning {
     display: none;
+}
+
+.Text-link {
+    text-decoration: none;
 }

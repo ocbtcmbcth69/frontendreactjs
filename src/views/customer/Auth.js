@@ -1,4 +1,8 @@
 import React, { useState } from 'react'
+import ForgotPassword from '../../components/validate/ForgotPassword'
+import Login from '../../components/validate/Login'
+import Register from '../../components/validate/Register'
+
 import '../../styles/Auth.scss'
 
 export default function (props) {
@@ -8,97 +12,32 @@ export default function (props) {
         setAuthMode(authMode === "login" ? "signup" : "login")
     }
 
-    if (authMode === "login") {
-        return (
-            <div className="Auth-background">
-                <div className="Auth-form-container">
-                    <form className="Auth-form">
-                        <div className="Auth-form-content">
-                            <h3 className="Auth-form-title">Đăng nhập</h3>
-                            <div className="form-group mt-3">
-                                <label>Tên đăng nhập</label>
-                                <input
-                                    type="email"
-                                    className="form-control mt-1"
-                                    placeholder="Nhập tên đăng nhập"
-                                />
-                            </div>
-                            <div className="form-group mt-3">
-                                <label>Mật khẩu</label>
-                                <input
-                                    type="password"
-                                    className="form-control mt-1"
-                                    placeholder="Nhập mật khẩu"
-                                />
-                            </div>
-                            <div className="d-grid gap-2 mt-4">
-                                <button type="submit" className="btn btn-primary">
-                                    Đăng nhập
-                                </button>
-                            </div>
-                            <div className="text-center mt-3">
-                                Chưa đăng ký tài khoản?{" "}
-                                <span className="link-primary" onClick={changeAuthMode}>
-                                    Đăng ký
-                                </span>
-                            </div>
-                            <p className="link-primary text-center mt-2">
-                                Quên mật khẩu?
-                            </p>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        )
+    const forgotPassword = () => {
+        setAuthMode("forgotpw")
     }
 
-    return (
-        <div className="Auth-background">
-            <div className="Auth-form-container">
-                <form className="Auth-form">
-                    <div className="Auth-form-content">
-                        <h3 className="Auth-form-title">Đăng ký</h3>
-                        <div className="form-group mt-3">
-                            <label>Tên đăng nhập</label>
-                            <input
-                                type="text"
-                                className="form-control mt-1"
-                                placeholder="Nhập tên đăng nhập"
-                            />
-                        </div>
-                        <div className="form-group mt-3">
-                            <label>Mật khẩu</label>
-                            <input
-                                type="password"
-                                className="form-control mt-1"
-                                placeholder="Nhập mật khẩu"
-                            />
-                        </div>
-                        <div className="form-group mt-3">
-                            <label>Nhập lại mật khẩu</label>
-                            <input
-                                type="password"
-                                className="form-control mt-1"
-                                placeholder="Nhập lại mật khẩu"
-                            />
-                        </div>
-                        <div className="d-grid gap-2 mt-3">
-                            <button type="submit" className="btn btn-primary">
-                                Đăng ký
-                            </button>
-                        </div>
-                        <div className="text-center mt-3">
-                            Đã đăng ký tài khoản?{" "}
-                            <span className="link-primary" onClick={changeAuthMode}>
-                                Đăng nhập
-                            </span>
-                        </div>
-                        <p className="link-primary text-center mt-2">
-                            Quên mật khẩu?
-                        </p>
-                    </div>
-                </form>
-            </div>
-        </div>
-    )
+    const login = () => {
+        setAuthMode("login")
+    }
+
+    const changeAuth = (newAuthMode) => {
+        setAuthMode(newAuthMode)
+    }
+
+    if (authMode === "login") {
+        return (
+            <Login changeAuth={changeAuth} />
+        );
+    }
+    if (authMode === "signup") {
+        return (
+            <Register changeAuth={changeAuth}/>
+        );
+    }
+
+    if (authMode === "forgotpw") {
+        return (
+            <ForgotPassword changeAuth={changeAuth} />
+        );
+    }
 }
